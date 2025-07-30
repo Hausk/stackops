@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   traefik:
     image: traefik:v2.10
@@ -15,7 +13,6 @@ services:
       - "./traefik/acme.json:/acme.json"
     labels:
       - "traefik.enable=true"
-
   backend:
     build:
       context: ./backend
@@ -25,8 +22,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`api.stackops.nip.io`)"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.backend.entrypoints=web"
       - "traefik.http.services.backend.loadbalancer.server.port=3000"
 
   frontend:
@@ -37,7 +33,6 @@ services:
       - PORT=3001
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`stackops.nip.io`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.services.frontend.loadbalancer.server.port=3001"
