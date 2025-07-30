@@ -1,17 +1,19 @@
-# frontend/Dockerfile
 FROM node:20-alpine
 
 WORKDIR /app
 
+# Copie les fichiers nécessaires
 COPY package*.json ./
-RUN npm install --production
 
+# Installation des deps
+RUN npm ci
+
+# Copie le reste du code
 COPY . .
 
 # Build de l'app
 RUN npm run build
 
-# Expose le port Next.js customisé (3001 ici)
 EXPOSE 3001
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
