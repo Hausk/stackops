@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env
+.env
+.env.*
+
+# Dependency dirs
+node_modules
+dist
+build
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Docker
+**/acme.json
